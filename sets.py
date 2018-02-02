@@ -1,4 +1,5 @@
 def check_equal(x,y):
+    #checks if two lists of depth 0 are equal
     if len(x) != len(y):
         print("the lists are not equal")
         return False
