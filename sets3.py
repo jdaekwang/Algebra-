@@ -1,9 +1,9 @@
 #main is the main program
 #treats lists as multisets, you can use remove_repeats to get rid of repeating elements
-#the empty list "[]" is an element of every list
-#[[[]]] is treated as [[]], same is true for [[[[]]]],[[[[[[]]]]]],...
+#the empty list "[]" is considered as the empty set and it is the subset of all lists
+#It does not treat sets as elements except for the empty set. In other words, it doesn't care about how things are grouped/structured. I.e. [[1],[2,3]] == [1,2,3]. HOWEVER, [[],[1],[2,3]] != [1,2,3] even though [] is a subset of [1,2,3]. In set theory this is INCORRECT.  
 
-compute = "subset"
+compute = "complement"
 
 def flatten(l):
     new_list = []
@@ -29,9 +29,11 @@ def main(l1,l2):
             print("the union is: ",result)
         elif compute == "intersection":
             result = substract_elements(a,b)[0]
-            print("the intersection is: ")
+            print("the intersection is: ",result)
         elif compute == "complement":
             result = substract_elements(a,b)[1]
+            #result = substract_elements(a,b)[2]
+            print("the complement is: ", result)
         return result
 
 
@@ -64,6 +66,7 @@ def substract_elements(x,y):
             elif a != b:
                 j = j + 1
         i = i + 1
+    print([common_elements,copy_big,copy_small,big,small])
     return [common_elements,copy_big, copy_small, big, small]
 
 def subset(l3):
@@ -86,6 +89,24 @@ def remove_repeats(l4):
             new_list = new_list + [l4[i]]
         i = i + 1
     return new_list
+
+def make_powerset(l5):
+    a = flatten(l5)
+    len_a = len(a)
+    i = 0
+    j = 0
+    k = 0
+    subset = []
+    power_set = []
+    while i < len_a:
+        index_list = index_list+[0]
+        i = i + 1
+    while j < maximum:
+        subset = subset + [a[i]]
+    power_set = power_set + subset
+
+
+    
 
 #Tests
 
