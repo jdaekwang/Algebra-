@@ -1,6 +1,8 @@
 #main is the main program
 #treats lists as multisets, you can use remove_repeats to get rid of repeating elements
 #the empty list "[]" is considered as the empty set and it is the subset of all lists
+#input must be a list
+#elements of the list must be able to be comparable, i.e. <, > must make sense
 
 compute = "subset"
 
