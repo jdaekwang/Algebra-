@@ -1,9 +1,8 @@
 #main is the main program
 #treats lists as multisets, you can use remove_repeats to get rid of repeating elements
 #the empty list "[]" is considered as the empty set and it is the subset of all lists
-#It does not treat sets as elements except for the empty set. In other words, it doesn't care about how things are grouped/structured. I.e. [[1],[2,3]] == [1,2,3]. HOWEVER, [[],[1],[2,3]] != [1,2,3] even though [] is a subset of [1,2,3]. In set theory this is INCORRECT.  
 
-compute = "complement"
+compute = "subset"
 
 def flatten(l):
     new_list = []
@@ -16,12 +15,43 @@ def flatten(l):
             new_list = new_list + [i]
     return new_list
 
+def sort(l):
+    new_list = []
+    new_list_2 = []
+    for i in l:
+        if type(i) == list:
+            new_list = [sort(i)]
+        elif type(i) != list:
+            new_list_2 = new_list_2 + [i]
+    ordered_list = merge_sort(new_list_2) + new_list
+    return ordered_list
+
+def merge_sort(l):
+    if len(l) > 1:
+        first_half = l[:(len(l)//2)]
+        second_half = l[(len(l)//2):]
+        return merge(first_half, second_half)
+    elif len(l) <= 1:
+        return l
+
+def merge(l1,l2):
+    if len(l1) == 0:
+        return l2
+    elif len(l2) == 0:
+        return l1
+    elif l1[0] > l2[0]:
+        sorted_list = [l2[0]] + merge(l2[1:],l1)
+    else:
+        sorted_list = [l1[0]] + merge(l1[1:],l2)
+    return sorted_list
+        
+
 def main(l1,l2):
     if type(l1) and type(l2) != list:
         print("arguments are not lists")
     else:
-        a = flatten(l1)
-        b = flatten(l2)
+        a = sort(l1)
+        b = sort(l2)
         if compute == "subset":
             result = subset(substract_elements(a,b))
         elif compute == "union":
@@ -79,6 +109,8 @@ def subset(l3):
             print("the sets are equal")
         elif len(l3[4]) < len(l3[3]):
             print(l3[4],"is a proper subset")
+    elif l3[0] != []:
+        print("the sets have the elements in common, but they are neither is a subset of each other")
 
 def remove_repeats(l4):
     i = 0
@@ -91,22 +123,21 @@ def remove_repeats(l4):
     return new_list
 
 def make_powerset(l5):
-    a = flatten(l5)
-    len_a = len(a)
-    i = 0
-    j = 0
-    k = 0
-    subset = []
     power_set = []
-    while i < len_a:
-        index_list = index_list+[0]
-        i = i + 1
-    while j < maximum:
-        subset = subset + [a[i]]
-    power_set = power_set + subset
+    pick = 1
+    number_of_elements = len(l5)
+    while pick < number_of_elements:
+        array_of_indices = pick * [0]
+        if array_of_indices[0] and array_of_indices[-1] == number_of_elements:
+            for i in array_of_indices:
+                if i < number_of_elements:
+                    i = i + 1
+                else:
+                    print("else condition of make_powerset")
+        pick = pick + 1
+    print(power_set)
 
-
-    
+#Create an array, with length elements.
 
 #Tests
 
@@ -125,6 +156,7 @@ l = [[[1]],[2,[3]],[]]
 
 main(a,d)
 main(a,b)
+main(a,c)
 main(a,h)
 main(e,f)
 main(g,f)
