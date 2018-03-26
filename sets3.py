@@ -77,7 +77,7 @@ def substract_elements(x,y):
         big = x
         small = y
     else:
-        print("substract element error")
+        print("elements of the list must be comparable")
     i = 0
     big_len = len(big)
     small_len = len(small)
